@@ -1,0 +1,27 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.aspectj:aspectjrt:1.9.22'
+    runtimeOnly 'org.aspectj:aspectjweaver:1.9.22'
+}
+
+application {
+    mainClass = 'org.example.Main'
+}
+
+tasks.named('run') {
+    doFirst {
+        def agent = configurations.runtimeClasspath.find { it.name.contains('aspectjweaver') }
+        jvmArgs += [
+                "-javaagent:$agent",
+                "-Dorg.aspectj.weaver.loadtime.configuration=META-INF/aop.xml"
+        ]
+    }
+}

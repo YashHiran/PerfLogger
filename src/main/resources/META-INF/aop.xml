@@ -1,0 +1,8 @@
+<aspectj>
+    <weaver>
+        <include within="org.example..*" />
+    </weaver>
+    <aspects>
+        <aspect name="org.example.perf.logger.PerformanceLoggerAspect" />
+    </aspects>
+</aspectj>
